@@ -43,7 +43,7 @@ class DB {
     .query('INSERT INTO role (title, salary, department_id) VALUES (?,?,?)', newRole);
   };
 
-  addNewEmployee(){
+  addNewEmployee(data){
     const newEmployee = [
       data.first_name,
       data.last_name,
@@ -55,7 +55,7 @@ class DB {
     .query('INSERT INTO employee (first_name, last_name, role_id, manager_id) VALUES (?,?,?,?)', newEmployee);
   };
 
-  updateEmployeeRole(){
+  updateEmployeeRole(data){
     const newEmployeeRole = [
       data.role_id,
       data.id

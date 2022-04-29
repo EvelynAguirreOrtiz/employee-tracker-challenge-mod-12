@@ -1,8 +1,4 @@
 const inquirer = require('inquirer');
-// const fs = require('fs');
-// const Department = require('./lib/Department');
-// const Role = require('./lib/Role');
-// const Employee = require('./lib/Employee');
 const db = require('./db');
 const mysql = require('mysql2');
 const showTable = require('console.table');
@@ -47,7 +43,6 @@ function viewAllEmployees() {
 }
 
 // Add new department to database
-// const departmentArr = [];
 function addDepartment() {
   inquirer.prompt([
     {
@@ -75,7 +70,6 @@ function addDepartment() {
       promptDataBase();
     })
   })
-  // promptDataBase();
 }
 
 // Add new role to database
@@ -202,18 +196,15 @@ function addEmployee() {
     }
   ])
   .then((data) => {
-    const employee = new Employee(data.first_name, data.last_name, data.role_id, data.manager_id)
-
-    // ADD EMPLOYEE TO EMPLOYEE TABLE HERE
-    addNewEmployee()
-    // INSERT INTO employee (first_name, last_name, role_id, manager_id)
-    // VALUE (?,?,?,?);
-
-    employeeArr.push(employee);
-    console.log(employeeArr);
-
-    promptDataBase();
-  })  
+    db.addNewEmployee(data)
+    .then(([rows]) => {
+      let newEmployees = rows;
+      console.table(newEmployees);
+    })
+    .then(() => {
+      promptDataBase();
+    })
+  })
 }
 
 // Update employee role
@@ -250,18 +241,15 @@ function updateEmployeeRole() {
     }
   ])
   .then((data) => {
-    // const updateRole = new UpdateRole(data.id, data.role)
-
-    // ADD ROLE TO ROLE TABLE HERE
-
-    // INSERT INTO employee (role_id)
-    // VALUE (?);
-    updateEmployeeRole()
-
-    console.log(data);
-
-    promptDataBase();
-  }) 
+    db.updateEmployeeRole(data)
+    .then(([rows]) => {
+      let EmployeeRoles = rows;
+      console.table(EmployeeRoles);
+    })
+    .then(() => {
+      promptDataBase();
+    })
+  })
 }
 
 // Start app
