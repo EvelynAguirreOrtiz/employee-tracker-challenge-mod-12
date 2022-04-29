@@ -73,7 +73,7 @@ function addDepartment() {
 }
 
 // Add new role to database
-roleArr = [];
+// roleAr?=r = [];
 function addRole() {
   inquirer.prompt([
     {
@@ -132,7 +132,6 @@ function addRole() {
 }
 
 // Add employee to database
-employeeArr = [];
 function addEmployee() {
   inquirer.prompt([
     {
@@ -180,7 +179,7 @@ function addEmployee() {
     {
       type: 'list',
       name: 'manager_id',
-      message: 'If applicable, please choose employee manager.',
+      message: 'If applicable, please choose employee manager ID.',
       choices: [
 
         // LIST MANAGER ID AND TITLE FROM EMPLOYEE TABLE
@@ -191,7 +190,7 @@ function addEmployee() {
         1,
         2,
         3,
-        'None'
+    
       ]
     }
   ])
@@ -214,37 +213,40 @@ function updateEmployeeRole() {
     {
       type: 'list',
       name: 'id',
-      message: 'Choose employee to update role',
+      message: 'Choose employee ID',
       choices: [
 
         // LIST EMPLOYEE FIRST_NAME LAST_NAME FROM EMPLOYEE TABLE
 
         // SELECT * FROM employee
 
-        'Employee 1',
-        'Employee 2'
+        1,
+        2,
+        3, 
+        
       ]
     },
     {
       type: 'list',
-      name: 'role',
-      message: 'Please choose enter new role',
+      name: 'role_id',
+      message: 'Please select new role ID',
       choices: [
+        
 
         // LIST ROLE TITLES FROM ROLE TABLE
         // SELECT * FROM role
 
-        'Engineer',
-        'Intern',
-        'Coder'
+        1,
+        2,
+        3
       ]
     }
   ])
   .then((data) => {
     db.updateEmployeeRole(data)
     .then(([rows]) => {
-      let EmployeeRoles = rows;
-      console.table(EmployeeRoles);
+      let employeeRoles = rows;
+      console.table(employeeRoles);
     })
     .then(() => {
       promptDataBase();
@@ -260,11 +262,20 @@ function promptDataBase() {
       name: 'options',
       message: 'What would you like to do?',
       choices: [
+        // 'View all departments',
+        // 'View all roles',
+        // 'View all employees',
+        // 'Add a department',
+        // 'Add a role',
+        // 'Add an employee',
+        // 'Update an employee role',
+        // 'Exit Employee Tracker'
+
         'View all departments',
-        'View all roles',
-        'View all employees',
         'Add a department',
+        'View all roles',
         'Add a role',
+        'View all employees',
         'Add an employee',
         'Update an employee role',
         'Exit Employee Tracker'

@@ -62,7 +62,7 @@ class DB {
     ];  
     return this.connection
     .promise()
-    .query('UPDATE employee SET role_id = ? WHERE id = ?', newEmployee);
+    .query('UPDATE employee SET role_id = ? WHERE id = ?', newEmployeeRole);
   };
 };
 
