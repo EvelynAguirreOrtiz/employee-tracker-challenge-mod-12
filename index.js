@@ -1,11 +1,11 @@
 const inquirer = require('inquirer');
-const fs = require('fs');
+// const fs = require('fs');
 // const Department = require('./lib/Department');
 // const Role = require('./lib/Role');
 // const Employee = require('./lib/Employee');
 const db = require('./db');
 const mysql = require('mysql2');
-require('console.table');
+const showTable = require('console.table');
 
 
 // View all departments
@@ -47,7 +47,7 @@ function viewAllEmployees() {
 }
 
 // Add new department to database
-const departmentArr = [];
+// const departmentArr = [];
 function addDepartment() {
   inquirer.prompt([
     {
@@ -65,21 +65,17 @@ function addDepartment() {
     }
   ])
   .then((data) => {
-    const department = new Department(data.name)
-
-    // ADD DEPARTMENT TO DATABASE HERE
-    // INSERT INTO department (name)
-    // VALUE (?);
-
-    // db.addNewDepartment()
-    // .then(([rows]) => {
-    //   let newDepartments = rows;
-    //   console.table(newDepartments);
-    // })
-    // .then(() => {
+    // const department = new Department(data.name)
+    db.addNewDepartment(data)
+    .then(([rows]) => {
+      let newDepartments = rows;
+      console.table(newDepartments);
+    })
+    .then(() => {
       promptDataBase();
-  //   })
+    })
   })
+  // promptDataBase();
 }
 
 // Add new role to database
@@ -130,18 +126,15 @@ function addRole() {
     },
   ])
   .then((data) => {
-    const role = new Role(data.title, data.salary, data.department_id)
-
-    // ADD ROLE TO ROLE TABLE HERE
-
-    // INSERT INTO role (title, salary, department_id)
-    // VALUE (?,?,?);
-
-    roleArr.push(role);
-    console.log(roleArr);
-
-    promptDataBase();
-  })  
+    db.addNewRole(data)
+    .then(([rows]) => {
+      let newRoles = rows;
+      console.table(newRoles);
+    })
+    .then(() => {
+      promptDataBase();
+    })
+  })
 }
 
 // Add employee to database
@@ -212,7 +205,7 @@ function addEmployee() {
     const employee = new Employee(data.first_name, data.last_name, data.role_id, data.manager_id)
 
     // ADD EMPLOYEE TO EMPLOYEE TABLE HERE
-
+    addNewEmployee()
     // INSERT INTO employee (first_name, last_name, role_id, manager_id)
     // VALUE (?,?,?,?);
 
@@ -263,7 +256,7 @@ function updateEmployeeRole() {
 
     // INSERT INTO employee (role_id)
     // VALUE (?);
-
+    updateEmployeeRole()
 
     console.log(data);
 
