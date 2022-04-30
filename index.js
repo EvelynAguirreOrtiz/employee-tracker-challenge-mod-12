@@ -1,6 +1,7 @@
 const inquirer = require('inquirer');
 const db = require('./db');
 const showTable = require('console.table');
+const { findAllDepartments } = require('./db');
 
 
 // View all departments
@@ -59,20 +60,17 @@ function addDepartment() {
     }
   ])
     .then((data) => {
-      // const department = new Department(data.name)
       db.addNewDepartment(data)
-        .then(([rows]) => {
-          let newDepartments = rows;
-          console.table(newDepartments);
-        })
         .then(() => {
-          promptDataBase();
+          console.log("");
+          console.log("New department added!");
         })
+      viewAllDepartments();
+      // promptDataBase();
     })
 }
 
 // Add new role to database
-// roleArr = [];
 function addRole() {
 
   db.findAllDepartments().then(([rows]) => {
@@ -115,13 +113,12 @@ function addRole() {
     ])
       .then((data) => {
         db.addNewRole(data)
-          .then(([rows]) => {
-            let newRoles = rows;
-            console.table(newRoles);
-          })
           .then(() => {
-            promptDataBase();
+            console.log("");
+            console.log('New role added!');
           })
+        viewAllRoles();
+        // promptDataBase();
       })
   })
 }
@@ -133,9 +130,9 @@ function addEmployee() {
     let roles = rows;
     const roleChoices = roles.map(({ title, salary, department_id }) => ({ name: title, value: department_id }));
 
-    db.findAllEmployees().then(([rows]) => {
-      let employees = rows;
-      const employeeChoices = employees.map(({ id, first_name, last_name, role_id, manager_id }) => ({ name: first_name + ' ' + last_name, value: id }));
+  db.findAllEmployees().then(([rows]) => {
+    let employees = rows;
+    const employeeChoices = employees.map(({ id, first_name, last_name, role_id, manager_id }) => ({ name: first_name + ' ' + last_name, value: id }));
 
       inquirer.prompt([
         {
@@ -173,20 +170,19 @@ function addEmployee() {
         {
           type: 'list',
           name: 'manager_id',
-          message: 'If applicable, please choose employee manager ID.',
+          message: 'Please choose employee manager.',
           default: false,
           choices: employeeChoices
         }
       ])
         .then((data) => {
           db.addNewEmployee(data)
-            .then(([rows]) => {
-              let newEmployees = rows;
-              console.table(newEmployees);
-            })
             .then(() => {
-              promptDataBase();
+              console.log("");
+              console.log('New employee added!');
             })
+          viewAllRoles();
+          // promptDataBase();
         })
     })
   })
@@ -199,36 +195,35 @@ function updateEmployeeRole() {
     let employees = rows;
     const employeeChoices = employees.map(({ id, first_name, last_name, role_id, manager_id }) => ({ name: first_name + ' ' + last_name, value: id }));
 
-
   db.findAllRoles().then(([rows]) => {
     let roles = rows;
-    const roleChoices = roles.map(({ title, salary, department_id }) => ({ name: title, value: department_id }));
+    const roleChoices = roles.map(({ id, title, salary, department_id }) => ({ name: title, value: id }));
 
       inquirer.prompt([
         {
           type: 'list',
           name: 'id',
-          message: 'Choose employee ID',
+          message: 'Choose employee',
           choices: employeeChoices
         },
         {
           type: 'list',
           name: 'role_id',
-          message: 'Please select new role ID',
+          message: 'Please select new role',
           choices: roleChoices
         }
       ])
         .then((data) => {
           db.updateEmployeeRole(data)
-            .then(([rows]) => {
-              let employeeRoles = rows;
-              console.table(employeeRoles);
-            })
             .then(() => {
-              promptDataBase();
+              console.log("");
+              console.log('New role added!');
             })
+          viewAllRoles();
+          // promptDataBase();
         })
-  })})
+    })
+  })
 }
 
 // Start app
@@ -239,20 +234,11 @@ function promptDataBase() {
       name: 'options',
       message: 'What would you like to do?',
       choices: [
-        // 'View all departments',
-        // 'View all roles',
-        // 'View all employees',
-        // 'Add a department',
-        // 'Add a role',
-        // 'Add an employee',
-        // 'Update an employee role',
-        // 'Exit Employee Tracker'
-
         'View all departments',
-        'Add a department',
         'View all roles',
-        'Add a role',
         'View all employees',
+        'Add a department',
+        'Add a role',
         'Add an employee',
         'Update an employee role',
         'Exit Employee Tracker'
@@ -294,3 +280,4 @@ function promptDataBase() {
   })
 };
 promptDataBase();
+
