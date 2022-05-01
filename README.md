@@ -4,9 +4,7 @@
   
 
 ## Description
-  This is a command-line application that will allow the user to manage a company's employee database. The user will be able to use the app to view and manage the company's deparments, roles, and employees.
-
-  The app allows the user to view by table a list of departments, company roles, and employees. The user can then follow the prompts to update the tables accordingly.
+This is a command-line application that will allow the user to view and manage a company's employee database. The user is able to view tables of the company's departments, roles, and employees. The user can then follow the prompts to update the tables accordingly.
 
 ## Table of Contents
 - [Project Title](#employee-tracker)
