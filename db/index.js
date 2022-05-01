@@ -16,17 +16,18 @@ class DB {
   findAllRoles(){
     return this.connection
     .promise()
-    // .query('SELECT * FROM role');
-    // .query('SELECT role.id AS id, role.title AS title, role.salary AS salary, department.name AS name FROM role JOIN department ON role.department_id = department.name');
-    .query('SELECT role.id, role.title, role.salary, department.name AS department_id FROM role JOIN department ON role.department_id = department.id');
+    .query('SELECT role.id, role.title, role.salary, department.name AS department FROM role JOIN department ON role.department_id = department.id');
 
   };
 
   findAllEmployees(){
     return this.connection
     .promise()
-    .query('SELECT * FROM employee');
+    // .query('SELECT * FROM employee');
     // .query('SELECT employee.id AS id, employee.first_name AS first_name, employee.last_name AS last_name, role.title AS title, department.name AS department, role.salary AS salary, ?manager?.name AS manager FROM employee INNER JOIN department, role, manager ON ?');
+  
+    .query('SELECT employee.id, employee.first_name, employee.last_name, role.title AS role, role.salary FROM employee INNER JOIN role ON employee.role_id = role.id');
+
   };
 
   addNewDepartment(data){
