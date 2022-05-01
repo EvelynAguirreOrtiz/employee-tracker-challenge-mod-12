@@ -10,6 +10,9 @@ function viewAllDepartments() {
   db.findAllDepartments()
     .then(([rows]) => {
       let departments = rows;
+      console.log("");
+      console.log("DEPARTMENTS")
+      console.log("");
       console.table(departments);
     })
     .then(() => {
@@ -23,6 +26,9 @@ function viewAllRoles() {
   db.findAllRoles()
     .then(([rows]) => {
       let roles = rows;
+      console.log("");
+      console.log("EMPLOYEE ROLES")
+      console.log("");
       console.table(roles);
     })
     .then(() => {
@@ -35,6 +41,9 @@ function viewAllEmployees() {
   db.findAllEmployees()
     .then(([rows]) => {
       let employees = rows;
+      console.log("");
+      console.log("EMPLOYEES")
+      console.log("");
       console.table(employees);
     })
     .then(() => {
@@ -48,7 +57,7 @@ function addDepartment() {
     {
       type: 'input',
       name: 'name',
-      message: 'Enter department name (Required)',
+      message: 'Enter department name: (Required)',
       validate: departmentInput => {
         if (departmentInput) {
           return true;
@@ -66,7 +75,6 @@ function addDepartment() {
           console.log("New department added!");
         })
       viewAllDepartments();
-      // promptDataBase();
     })
 }
 
@@ -81,7 +89,7 @@ function addRole() {
       {
         type: 'input',
         name: 'title',
-        message: 'Enter role title (Required)',
+        message: 'Enter role title: (Required)',
         validate: roleInput => {
           if (roleInput) {
             return true;
@@ -94,7 +102,7 @@ function addRole() {
       {
         type: 'input',
         name: 'salary',
-        message: 'Enter salary for this role (Required)',
+        message: 'Enter salary for this role: (Required)',
         validate: salaryInput => {
           if (salaryInput) {
             return true;
@@ -107,8 +115,16 @@ function addRole() {
       {
         type: 'list',
         name: 'department_id',
-        message: 'Please choose the department for this role (Required)',
-        choices: departmentChoices
+        message: 'Please choose the department for this role: (Required)',
+        choices: departmentChoices,
+        validate: departmentInput => {
+          if (departmentInput) {
+            return true;
+          } else {
+            console.log('Please enter the department for this role!');
+            return false;
+          }
+        }
       },
     ])
       .then((data) => {
@@ -118,7 +134,6 @@ function addRole() {
             console.log('New role added!');
           })
         viewAllRoles();
-        // promptDataBase();
       })
   })
 }
@@ -138,12 +153,12 @@ function addEmployee() {
         {
           type: 'input',
           name: 'first_name',
-          message: 'Enter employee first name (Required)',
+          message: "Enter employee's first name: (Required)",
           validate: firstNameInput => {
             if (firstNameInput) {
               return true;
             } else {
-              console.log('Please enter employee first-name!');
+              console.log("Please enter employee's first name!");
               return false;
             }
           }
@@ -151,12 +166,12 @@ function addEmployee() {
         {
           type: 'input',
           name: 'last_name',
-          message: 'Enter employee last name (Required)',
+          message: "Enter employee's last name: (Required)",
           validate: lastNameInput => {
             if (lastNameInput) {
               return true;
             } else {
-              console.log('Please enter employee last-name!');
+              console.log("Please enter employee's last-name!");
               return false;
             }
           }
@@ -164,13 +179,21 @@ function addEmployee() {
         {
           type: 'list',
           name: 'role_id',
-          message: 'Choose employee role ID (Required)',
+          message: "Choose employee's role: (Required)",
           choices: roleChoices
+        },
+
+        // added code
+        {
+          type: 'confirm',
+          name: 'confirmManager',
+          message: 'Does this employee have a manager?',
+          default: true
         },
         {
           type: 'list',
           name: 'manager_id',
-          message: 'Please choose employee manager.',
+          message: "Please choose employee's manager:",
           default: false,
           choices: employeeChoices
         }
@@ -182,7 +205,6 @@ function addEmployee() {
               console.log('New employee added!');
             })
           viewAllRoles();
-          // promptDataBase();
         })
     })
   })
@@ -203,13 +225,13 @@ function updateEmployeeRole() {
         {
           type: 'list',
           name: 'id',
-          message: 'Choose employee',
+          message: 'Choose employee to update role:',
           choices: employeeChoices
         },
         {
           type: 'list',
           name: 'role_id',
-          message: 'Please select new role',
+          message: 'Please select new role:',
           choices: roleChoices
         }
       ])
@@ -217,10 +239,9 @@ function updateEmployeeRole() {
           db.updateEmployeeRole(data)
             .then(() => {
               console.log("");
-              console.log('New role added!');
+              console.log('Employee role updated!');
             })
-          viewAllRoles();
-          // promptDataBase();
+          viewAllEmployees();
         })
     })
   })
