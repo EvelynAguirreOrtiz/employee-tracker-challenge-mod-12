@@ -184,12 +184,12 @@ function addEmployee() {
         },
 
         // added code
-        {
-          type: 'confirm',
-          name: 'confirmManager',
-          message: 'Does this employee have a manager?',
-          default: true
-        },
+        // {
+        //   type: 'confirm',
+        //   name: 'confirmManager',
+        //   message: 'Does this employee have a manager?',
+        //   default: true
+        // },
         {
           type: 'list',
           name: 'manager_id',
@@ -204,7 +204,7 @@ function addEmployee() {
               console.log("");
               console.log('New employee added!');
             })
-          viewAllRoles();
+          viewAllEmployees();
         })
     })
   })
