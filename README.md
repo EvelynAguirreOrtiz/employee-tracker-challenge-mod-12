@@ -23,7 +23,7 @@ The application will be invoked by using the following command:
   node index.js
   ```
 
-[Here](./assets/images/Employee_Tracker_Demo.mp4) is an example of the app in use. 
+A preview of the app in use can be found [here](./assets/images/Employee_Tracker_Demo.mp4). 
 
 
  ![](./assets/images/Employee_Tracker_Demo.gif)
@@ -44,7 +44,7 @@ GitHub:
 <https://github.com/EvelynAguirreOrtiz>
 
 Project URL:
-<https://github.com/EvelynAguirreOrtiz/professional-readme-generator-challenge-utsa-bc-03-2022.git>
+<https://github.com/EvelynAguirreOrtiz/employee-tracker-challenge-utsa-bc-04-2022.git>
 
 Please send requests for additional information to:
 <evelyn.aguirre.9895@gmail.com>
