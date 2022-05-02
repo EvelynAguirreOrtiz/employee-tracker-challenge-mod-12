@@ -17,17 +17,12 @@ class DB {
     return this.connection
     .promise()
     .query('SELECT role.id, role.title, role.salary, department.name AS department FROM role JOIN department ON role.department_id = department.id');
-
   };
 
   findAllEmployees(){
     return this.connection
     .promise()
-    // .query('SELECT * FROM employee');
-    // .query('SELECT employee.id AS id, employee.first_name AS first_name, employee.last_name AS last_name, role.title AS title, department.name AS department, role.salary AS salary, ?manager?.name AS manager FROM employee INNER JOIN department, role, manager ON ?');
-  
-    .query('SELECT employee.id, employee.first_name, employee.last_name, role.title AS role, role.salary FROM employee INNER JOIN role ON employee.role_id = role.id');
-
+    .query('SELECT employee.id, employee.first_name, employee.last_name, role.title AS role, department.name AS department, role.salary, employee.manager_id AS manager FROM employee INNER JOIN role ON employee.role_id = role.id INNER JOIN department ON role.department_id = department.id');
   };
 
   addNewDepartment(data){

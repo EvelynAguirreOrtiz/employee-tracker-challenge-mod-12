@@ -182,14 +182,6 @@ function addEmployee() {
           message: "Choose employee's role: (Required)",
           choices: roleChoices
         },
-
-        // added code
-        // {
-        //   type: 'confirm',
-        //   name: 'confirmManager',
-        //   message: 'Does this employee have a manager?',
-        //   default: true
-        // },
         {
           type: 'list',
           name: 'manager_id',
