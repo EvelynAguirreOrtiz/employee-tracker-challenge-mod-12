@@ -22,6 +22,7 @@ class DB {
   findAllEmployees(){
     return this.connection
     .promise()
+    // .query('SELECT * FROM employee');
     .query('SELECT employee.id, employee.first_name, employee.last_name, role.title AS role, department.name AS department, role.salary, employee.manager_id AS manager FROM employee INNER JOIN role ON employee.role_id = role.id INNER JOIN department ON role.department_id = department.id');
   };
 

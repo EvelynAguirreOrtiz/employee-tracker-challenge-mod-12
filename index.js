@@ -143,7 +143,8 @@ function addEmployee() {
 
   db.findAllRoles().then(([rows]) => {
     let roles = rows;
-    const roleChoices = roles.map(({ title, salary, department_id }) => ({ name: title, value: department_id }));
+    // const roleChoices = roles.map(({ title, salary, department_id }) => ({ name: title, value: department_id }));
+    const roleChoices = roles.map(({ title, salary, id }) => ({ name: title, value: id }));
 
   db.findAllEmployees().then(([rows]) => {
     let employees = rows;
