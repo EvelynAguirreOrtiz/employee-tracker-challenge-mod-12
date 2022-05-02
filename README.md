@@ -23,9 +23,10 @@ The application will be invoked by using the following command:
   node index.js
   ```
 
-  [Here](./assets/images/README-demo.mp4) is an example of the app in use. 
+[Here](./assets/images/Employee_Tracker_Demo.mp4) is an example of the app in use. 
 
- ![](./assets/images/README-generator-demo.gif)
+
+ ![](./assets/images/Employee_Tracker_Demo.gif)
 
 ## License
   
